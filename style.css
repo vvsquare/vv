@@ -1,0 +1,82 @@
+/* General Styles */
+body {
+    margin: 0;
+    overflow: hidden;
+    background-color: #ffdee9;
+    font-family: Arial, sans-serif;
+}
+
+/* Moving Hearts Background */
+.hearts {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.hearts::before,
+.hearts::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    width: 10px;
+    height: 10px;
+    background: #ff69b4;
+    animation: move-hearts 5s linear infinite;
+}
+
+.hearts::after {
+    background: #ff1493;
+    animation-delay: 2.5s;
+}
+
+@keyframes move-hearts {
+    0% {
+        transform: translate(-50%, 0) rotate(0deg);
+        top: 100%;
+    }
+    100% {
+        transform: translate(50vw, -100vh) rotate(360deg);
+        top: -10%;
+    }
+}
+
+/* Slider Styles */
+.slider-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+}
+
+.slider {
+    display: flex;
+    gap: 10px;
+    animation: slide 20s infinite;
+}
+
+.slider img {
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    object-fit: cover;
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-200px * 8));
+    }
+}
+
+/* Add infinite scroll effect */
+.slider {
+    will-change: transform;
+    animation-timing-function: linear;
+}
