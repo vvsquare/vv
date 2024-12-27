@@ -46,32 +46,27 @@
       }
     }
 
-    /* Carousel container */
-    .carousel {
+    /* Slideshow container */
+    .slideshow-container {
       position: relative;
-      width: 80vw;
-      height: 60vh; /* Adjusted height */
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: grab;
+      width: 80vw; /* Adjusted for better fit */
+      height: 60vh; /* Adjusted for better fit */
       overflow: hidden;
       z-index: 2;
-    }
-
-    /* Image container for the carousel */
-    .carousel-images {
-      display: flex;
-      transition: transform 0.3s ease;
-      cursor: grab;
-    }
-
-    .carousel-images img {
-      width: 90%;
-      height: 100%;
-      object-fit: cover;
       border-radius: 15px;
-      margin-right: 20px; /* Space between images */
+    }
+
+    /* Image container for the slideshow */
+    .slideshow-images {
+      display: flex;
+      transition: transform 1s ease-in-out;
+    }
+
+    .slideshow-images img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; /* Ensures the images fill the container without distorting */
+      border-radius: 15px;
     }
 
     /* Playable Background Music */
@@ -99,9 +94,9 @@
   createHeartRain();
 </script>
 
-<!-- Carousel -->
-<div class="carousel" id="carousel">
-  <div class="carousel-images" id="carousel-images">
+<!-- Slideshow -->
+<div class="slideshow-container">
+  <div class="slideshow-images" id="slideshow-images">
     <img src="image1.jpg" alt="Image 1">
     <img src="image2.jpg" alt="Image 2">
     <img src="image3.jpg" alt="Image 3">
@@ -120,60 +115,15 @@
 </audio>
 
 <script>
-  const carousel = document.getElementById('carousel');
-  const carouselImages = document.getElementById('carousel-images');
+  const slideshowImages = document.getElementById('slideshow-images');
+  let currentIndex = 0;
 
-  let isDragging = false;
-  let startX;
-  let scrollLeft;
+  function changeImage() {
+    currentIndex = (currentIndex + 1) % 8; // There are 8 images
+    slideshowImages.style.transform = `translateX(-${currentIndex * 100}%)`;
+  }
 
-  // Mouse Down - start dragging
-  carousel.addEventListener('mousedown', (e) => {
-    isDragging = true;
-    startX = e.pageX - carousel.offsetLeft;
-    scrollLeft = carouselImages.scrollLeft;
-    carousel.style.cursor = 'grabbing';
-  });
-
-  // Mouse Leave or Up - stop dragging
-  carousel.addEventListener('mouseleave', () => {
-    isDragging = false;
-    carousel.style.cursor = 'grab';
-  });
-  carousel.addEventListener('mouseup', () => {
-    isDragging = false;
-    carousel.style.cursor = 'grab';
-  });
-
-  // Mouse Move - dragging
-  carousel.addEventListener('mousemove', (e) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.pageX - carousel.offsetLeft;
-    const walk = (x - startX) * 2; // Speed factor
-    carouselImages.scrollLeft = scrollLeft - walk;
-  });
-
-  // Touch events for mobile support
-  carousel.addEventListener('touchstart', (e) => {
-    isDragging = true;
-    startX = e.touches[0].pageX - carousel.offsetLeft;
-    scrollLeft = carouselImages.scrollLeft;
-    carousel.style.cursor = 'grabbing';
-  });
-
-  carousel.addEventListener('touchend', () => {
-    isDragging = false;
-    carousel.style.cursor = 'grab';
-  });
-
-  carousel.addEventListener('touchmove', (e) => {
-    if (!isDragging) return;
-    e.preventDefault();
-    const x = e.touches[0].pageX - carousel.offsetLeft;
-    const walk = (x - startX) * 2; // Speed factor
-    carouselImages.scrollLeft = scrollLeft - walk;
-  });
+  setInterval(changeImage, 3000); // Change every 3 seconds
 </script>
 
 </body>
