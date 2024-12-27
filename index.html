@@ -45,22 +45,24 @@
     .slider {
       position: relative;
       width: 100%;
-      margin: 50px auto;
+      height: 100vh;
       overflow: hidden;
-      border-radius: 15px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin: 50px auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       cursor: grab;
     }
 
     .slider-images {
       display: flex;
-      transition: transform 0.2s ease;
+      transition: transform 0.3s ease;
       cursor: grab;
     }
 
     .slider-images img {
-      width: 100vw; /* Each image takes up 100% of the viewport width */
-      height: auto;
+      height: 90%; /* Images take up most of the screen height */
+      margin: 0 10px; /* Slight space between images */
       border-radius: 15px;
     }
 
