@@ -8,9 +8,13 @@
     body {
       background-color: #fff; /* White background */
       font-family: Arial, sans-serif;
-      overflow: hidden;
       margin: 0;
       height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      position: relative;
     }
 
     /* Love-themed gradient background */
@@ -23,6 +27,7 @@
       height: 100%;
       background-image: linear-gradient(to right, #ff7f7f, #ffb3b3); /* Soft pinks and reds */
       opacity: 0.8;
+      z-index: 1; /* Ensure background is behind the images */
     }
 
     /* Heart Rain Animation */
@@ -44,14 +49,14 @@
     /* Slideshow Container */
     .slider {
       position: relative;
-      width: 100%;
-      height: 100vh;
+      width: 80%;
+      height: 80vh; /* Adjusted height for better visibility */
       overflow: hidden;
-      margin: 50px auto;
       display: flex;
       justify-content: center;
       align-items: center;
       cursor: grab;
+      z-index: 2; /* Ensure images are in front of the background */
     }
 
     .slider-images {
