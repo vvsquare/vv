@@ -6,18 +6,18 @@
   <title>Heartfelt Surprise</title>
   <style>
     body {
-      background-color: #fff; /* White background */
-      font-family: Arial, sans-serif;
       margin: 0;
       height: 100vh;
+      background-color: #fff;
+      font-family: Arial, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      overflow: hidden;
       position: relative;
+      overflow: hidden;
     }
 
-    /* Love-themed gradient background */
+    /* Background */
     body::after {
       content: "";
       position: absolute;
@@ -27,10 +27,10 @@
       height: 100%;
       background-image: linear-gradient(to right, #ff7f7f, #ffb3b3); /* Soft pinks and reds */
       opacity: 0.8;
-      z-index: 1; /* Ensure background is behind the images */
+      z-index: 1;
     }
 
-    /* Heart Rain Animation */
+    /* Heart Animation */
     .heart {
       position: absolute;
       top: -50px;
@@ -46,29 +46,31 @@
       }
     }
 
-    /* Slideshow Container */
-    .slider {
+    /* Carousel container */
+    .carousel {
       position: relative;
-      width: 80%;
-      height: 80vh; /* Adjusted height for better visibility */
-      overflow: hidden;
+      width: 80vw;
+      height: 80vh;
       display: flex;
       justify-content: center;
       align-items: center;
       cursor: grab;
-      z-index: 2; /* Ensure images are in front of the background */
+      z-index: 2;
+      overflow: hidden;
     }
 
-    .slider-images {
+    /* Image container for the carousel */
+    .carousel-images {
       display: flex;
       transition: transform 0.3s ease;
-      cursor: grab;
     }
 
-    .slider-images img {
-      height: 90%; /* Images take up most of the screen height */
-      margin: 0 10px; /* Slight space between images */
+    .carousel-images img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       border-radius: 15px;
+      margin-right: 20px; /* Space between images */
     }
 
     /* Playable Background Music */
@@ -96,8 +98,9 @@
   createHeartRain();
 </script>
 
-<div class="slider" id="slider">
-  <div class="slider-images" id="slider-images">
+<!-- Carousel -->
+<div class="carousel" id="carousel">
+  <div class="carousel-images" id="carousel-images">
     <img src="image1.jpg" alt="Image 1">
     <img src="image2.jpg" alt="Image 2">
     <img src="image3.jpg" alt="Image 3">
@@ -109,65 +112,66 @@
   </div>
 </div>
 
+<!-- Background Music -->
 <audio autoplay loop>
   <source src="your-song.mp3" type="audio/mp3">
   Your browser does not support the audio element.
 </audio>
 
 <script>
-  const slider = document.getElementById('slider');
-  const sliderImages = document.getElementById('slider-images');
-  
+  const carousel = document.getElementById('carousel');
+  const carouselImages = document.getElementById('carousel-images');
+
   let isDragging = false;
   let startX;
   let scrollLeft;
 
   // Mouse Down - start dragging
-  slider.addEventListener('mousedown', (e) => {
+  carousel.addEventListener('mousedown', (e) => {
     isDragging = true;
-    startX = e.pageX - slider.offsetLeft;
-    scrollLeft = sliderImages.scrollLeft;
-    slider.style.cursor = 'grabbing';
+    startX = e.pageX - carousel.offsetLeft;
+    scrollLeft = carouselImages.scrollLeft;
+    carousel.style.cursor = 'grabbing';
   });
 
   // Mouse Leave or Up - stop dragging
-  slider.addEventListener('mouseleave', () => {
+  carousel.addEventListener('mouseleave', () => {
     isDragging = false;
-    slider.style.cursor = 'grab';
+    carousel.style.cursor = 'grab';
   });
-  slider.addEventListener('mouseup', () => {
+  carousel.addEventListener('mouseup', () => {
     isDragging = false;
-    slider.style.cursor = 'grab';
+    carousel.style.cursor = 'grab';
   });
 
   // Mouse Move - dragging
-  slider.addEventListener('mousemove', (e) => {
+  carousel.addEventListener('mousemove', (e) => {
     if (!isDragging) return;
     e.preventDefault();
-    const x = e.pageX - slider.offsetLeft;
+    const x = e.pageX - carousel.offsetLeft;
     const walk = (x - startX) * 2; // Speed factor
-    sliderImages.scrollLeft = scrollLeft - walk;
+    carouselImages.scrollLeft = scrollLeft - walk;
   });
 
   // Touch events for mobile support
-  slider.addEventListener('touchstart', (e) => {
+  carousel.addEventListener('touchstart', (e) => {
     isDragging = true;
-    startX = e.touches[0].pageX - slider.offsetLeft;
-    scrollLeft = sliderImages.scrollLeft;
-    slider.style.cursor = 'grabbing';
+    startX = e.touches[0].pageX - carousel.offsetLeft;
+    scrollLeft = carouselImages.scrollLeft;
+    carousel.style.cursor = 'grabbing';
   });
 
-  slider.addEventListener('touchend', () => {
+  carousel.addEventListener('touchend', () => {
     isDragging = false;
-    slider.style.cursor = 'grab';
+    carousel.style.cursor = 'grab';
   });
 
-  slider.addEventListener('touchmove', (e) => {
+  carousel.addEventListener('touchmove', (e) => {
     if (!isDragging) return;
     e.preventDefault();
-    const x = e.touches[0].pageX - slider.offsetLeft;
+    const x = e.touches[0].pageX - carousel.offsetLeft;
     const walk = (x - startX) * 2; // Speed factor
-    sliderImages.scrollLeft = scrollLeft - walk;
+    carouselImages.scrollLeft = scrollLeft - walk;
   });
 </script>
 
