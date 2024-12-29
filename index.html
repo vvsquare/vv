@@ -4,6 +4,18 @@
   <meta charset="UTF-8">
   <title>A small Gift From Vaasu</title>
   <link rel="stylesheet" href="./style.css">
+	<script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const playMusic = () => {
+        const audio = new Audio('perfect.mp3');
+        audio.loop = true; // Loop the music
+        audio.play();
+      };
+
+      // Trigger audio playback on user interaction
+      document.body.addEventListener("click", playMusic, { once: true });
+    });
+  </script>
 
 </head>
 <body>
