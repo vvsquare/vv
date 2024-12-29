@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rainbow Carousel</title>
+  <title>Rainbow Carousel with 8 Images</title>
   <style>
     body {
       margin: 0;
@@ -45,25 +45,37 @@
       transition: all 0.5s ease;
     }
 
-    /* Rainbow arc positions */
+    /* Rainbow arc positions for 8 images */
     .carousel-images img:nth-child(1) {
-      transform: translateX(-300px) translateY(50px) scale(0.8);
+      transform: translateX(-350px) translateY(80px) scale(0.7);
       z-index: 1;
     }
     .carousel-images img:nth-child(2) {
-      transform: translateX(-150px) translateY(30px) scale(0.9);
+      transform: translateX(-250px) translateY(60px) scale(0.8);
       z-index: 2;
     }
     .carousel-images img:nth-child(3) {
-      transform: translateX(0px) translateY(0px) scale(1.2); /* Center image */
+      transform: translateX(-150px) translateY(40px) scale(0.9);
       z-index: 3;
     }
     .carousel-images img:nth-child(4) {
-      transform: translateX(150px) translateY(30px) scale(0.9);
-      z-index: 2;
+      transform: translateX(-50px) translateY(20px) scale(1.0);
+      z-index: 4;
     }
     .carousel-images img:nth-child(5) {
-      transform: translateX(300px) translateY(50px) scale(0.8);
+      transform: translateX(50px) translateY(20px) scale(1.0);
+      z-index: 4;
+    }
+    .carousel-images img:nth-child(6) {
+      transform: translateX(150px) translateY(40px) scale(0.9);
+      z-index: 3;
+    }
+    .carousel-images img:nth-child(7) {
+      transform: translateX(250px) translateY(60px) scale(0.8);
+      z-index: 2;
+    }
+    .carousel-images img:nth-child(8) {
+      transform: translateX(350px) translateY(80px) scale(0.7);
       z-index: 1;
     }
   </style>
@@ -77,6 +89,9 @@
     <img src="image3.jpg" alt="Image 3">
     <img src="image4.jpg" alt="Image 4">
     <img src="image5.jpg" alt="Image 5">
+    <img src="image6.jpg" alt="Image 6">
+    <img src="image7.jpg" alt="Image 7">
+    <img src="image8.jpg" alt="Image 8">
   </div>
 </div>
 
@@ -86,12 +101,16 @@
   let currentX = 0;
   let offset = 0;
 
+  // Define positions for 8 images
   const positions = [
-    { x: -300, y: 50, scale: 0.8, z: 1 },
-    { x: -150, y: 30, scale: 0.9, z: 2 },
-    { x: 0, y: 0, scale: 1.2, z: 3 }, // Center image
-    { x: 150, y: 30, scale: 0.9, z: 2 },
-    { x: 300, y: 50, scale: 0.8, z: 1 },
+    { x: -350, y: 80, scale: 0.7, z: 1 },
+    { x: -250, y: 60, scale: 0.8, z: 2 },
+    { x: -150, y: 40, scale: 0.9, z: 3 },
+    { x: -50, y: 20, scale: 1.0, z: 4 },
+    { x: 50, y: 20, scale: 1.0, z: 4 },
+    { x: 150, y: 40, scale: 0.9, z: 3 },
+    { x: 250, y: 60, scale: 0.8, z: 2 },
+    { x: 350, y: 80, scale: 0.7, z: 1 },
   ];
 
   const images = Array.from(carousel.children);
@@ -131,11 +150,12 @@
     document.removeEventListener("touchend", endDrag);
   }
 
-  carousel.addEventListener("mousedown", startDrag);
-  carousel.addEventListener("touchstart", startDrag);
-
   // Initialize positions
   updatePositions();
+
+  // Add drag event listeners
+  carousel.addEventListener("mousedown", startDrag);
+  carousel.addEventListener("touchstart", startDrag);
 </script>
 
 </body>
