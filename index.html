@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Enhanced Circular 3D Stacked Images</title>
+  <title>3D Circular Stack with 8 Images</title>
   <style>
     body {
       margin: 0;
@@ -34,28 +34,44 @@
 
     .stack-container img {
       position: absolute;
-      width: calc(100% - 20px); /* Reduce width for 1 cm gap */
-      height: calc(100% - 20px); /* Reduce height for 1 cm gap */
+      width: calc(100% - 20px); /* Adjust for a 1 cm gap */
+      height: calc(100% - 20px);
       object-fit: cover;
       border-radius: 10px;
       box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
     }
 
-    /* Enhanced Circular Arrangement */
+    /* Circular arrangement for 8 images */
     .stack-container img:nth-child(1) {
       transform: translateZ(0px) translateX(0px) translateY(0px) rotateY(0deg);
     }
 
     .stack-container img:nth-child(2) {
-      transform: translateZ(-60px) translateX(40px) translateY(15px) rotateY(-10deg);
+      transform: translateZ(-40px) translateX(20px) translateY(10px) rotateY(-10deg);
     }
 
     .stack-container img:nth-child(3) {
-      transform: translateZ(-120px) translateX(80px) translateY(30px) rotateY(-20deg);
+      transform: translateZ(-80px) translateX(40px) translateY(20px) rotateY(-20deg);
     }
 
     .stack-container img:nth-child(4) {
-      transform: translateZ(-180px) translateX(120px) translateY(45px) rotateY(-30deg);
+      transform: translateZ(-120px) translateX(60px) translateY(30px) rotateY(-30deg);
+    }
+
+    .stack-container img:nth-child(5) {
+      transform: translateZ(-160px) translateX(80px) translateY(40px) rotateY(-40deg);
+    }
+
+    .stack-container img:nth-child(6) {
+      transform: translateZ(-200px) translateX(100px) translateY(50px) rotateY(-50deg);
+    }
+
+    .stack-container img:nth-child(7) {
+      transform: translateZ(-240px) translateX(120px) translateY(60px) rotateY(-60deg);
+    }
+
+    .stack-container img:nth-child(8) {
+      transform: translateZ(-280px) translateX(140px) translateY(70px) rotateY(-70deg);
     }
   </style>
 </head>
