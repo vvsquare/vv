@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rainbow Carousel with 8 Images</title>
+  <title>Dynamic Rainbow Carousel</title>
   <style>
     body {
       margin: 0;
@@ -45,7 +45,7 @@
       transition: all 0.5s ease;
     }
 
-    /* Rainbow arc positions for 8 images with more space */
+    /* Rainbow arc positions for 8 images */
     .carousel-images img:nth-child(1) {
       transform: translateX(-450px) translateY(100px) scale(0.7);
       z-index: 1;
@@ -101,7 +101,6 @@
   let currentX = 0;
   let offset = 0;
 
-  // Define positions for 8 images with more space
   const positions = [
     { x: -450, y: 100, scale: 0.7, z: 1 },
     { x: -350, y: 80, scale: 0.8, z: 2 },
