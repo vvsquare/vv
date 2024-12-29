@@ -37,13 +37,47 @@
 
     .carousel-images img {
       position: absolute;
-      width: 150px;
-      height: auto;
+      width: 150px;  /* Fixed width */
+      height: 150px; /* Fixed height */
       border-radius: 10px;
       box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+      object-fit: cover; /* Ensures images fit the box without distortion */
       transition: all 0.5s ease;
     }
 
+    /* Rainbow arc positions for 8 images */
+    .carousel-images img:nth-child(1) {
+      transform: translateX(-350px) translateY(100px) scale(0.7);
+      z-index: 1;
+    }
+    .carousel-images img:nth-child(2) {
+      transform: translateX(-250px) translateY(80px) scale(0.8);
+      z-index: 2;
+    }
+    .carousel-images img:nth-child(3) {
+      transform: translateX(-150px) translateY(60px) scale(0.9);
+      z-index: 3;
+    }
+    .carousel-images img:nth-child(4) {
+      transform: translateX(-50px) translateY(40px) scale(1.0);
+      z-index: 4;
+    }
+    .carousel-images img:nth-child(5) {
+      transform: translateX(50px) translateY(40px) scale(1.0);
+      z-index: 4;
+    }
+    .carousel-images img:nth-child(6) {
+      transform: translateX(150px) translateY(60px) scale(0.9);
+      z-index: 3;
+    }
+    .carousel-images img:nth-child(7) {
+      transform: translateX(250px) translateY(80px) scale(0.8);
+      z-index: 2;
+    }
+    .carousel-images img:nth-child(8) {
+      transform: translateX(350px) translateY(100px) scale(0.7);
+      z-index: 1;
+    }
   </style>
 </head>
 <body>
