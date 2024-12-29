@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>3D Circular Stack with 8 Images</title>
+  <title>Rainbow Carousel</title>
   <style>
     body {
       margin: 0;
@@ -11,120 +11,131 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(to bottom, #ff7f7f, #ffb3b3);
+      background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
       overflow: hidden;
       font-family: Arial, sans-serif;
     }
 
-    .stack-container {
+    .carousel {
       position: relative;
-      width: 300px;
-      height: 400px;
-      perspective: 1000px;
-      cursor: grab;
-    }
-
-    .stack-inner {
-      position: absolute;
       width: 100%;
-      height: 100%;
-      transform-style: preserve-3d;
-      transition: transform 0.3s ease;
+      max-width: 800px;
+      height: 300px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      perspective: 1000px;
+      overflow: hidden;
     }
 
-    .stack-container img {
+    .carousel-images {
+      display: flex;
+      align-items: center;
+      transform-style: preserve-3d;
+      transform: translateX(0px);
+      transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-images img {
       position: absolute;
-      width: calc(100% - 20px); /* Adjust for a 1 cm gap */
-      height: calc(100% - 20px);
-      object-fit: cover;
+      width: 150px;
+      height: auto;
       border-radius: 10px;
       box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.5s ease;
     }
 
-    /* Circular arrangement for 8 images */
-    .stack-container img:nth-child(1) {
-      transform: translateZ(0px) translateX(0px) translateY(0px) rotateY(0deg);
+    /* Rainbow arc positions */
+    .carousel-images img:nth-child(1) {
+      transform: translateX(-300px) translateY(50px) scale(0.8);
+      z-index: 1;
     }
-
-    .stack-container img:nth-child(2) {
-      transform: translateZ(-40px) translateX(20px) translateY(10px) rotateY(-10deg);
+    .carousel-images img:nth-child(2) {
+      transform: translateX(-150px) translateY(30px) scale(0.9);
+      z-index: 2;
     }
-
-    .stack-container img:nth-child(3) {
-      transform: translateZ(-80px) translateX(40px) translateY(20px) rotateY(-20deg);
+    .carousel-images img:nth-child(3) {
+      transform: translateX(0px) translateY(0px) scale(1.2); /* Center image */
+      z-index: 3;
     }
-
-    .stack-container img:nth-child(4) {
-      transform: translateZ(-120px) translateX(60px) translateY(30px) rotateY(-30deg);
+    .carousel-images img:nth-child(4) {
+      transform: translateX(150px) translateY(30px) scale(0.9);
+      z-index: 2;
     }
-
-    .stack-container img:nth-child(5) {
-      transform: translateZ(-160px) translateX(80px) translateY(40px) rotateY(-40deg);
-    }
-
-    .stack-container img:nth-child(6) {
-      transform: translateZ(-200px) translateX(100px) translateY(50px) rotateY(-50deg);
-    }
-
-    .stack-container img:nth-child(7) {
-      transform: translateZ(-240px) translateX(120px) translateY(60px) rotateY(-60deg);
-    }
-
-    .stack-container img:nth-child(8) {
-      transform: translateZ(-280px) translateX(140px) translateY(70px) rotateY(-70deg);
+    .carousel-images img:nth-child(5) {
+      transform: translateX(300px) translateY(50px) scale(0.8);
+      z-index: 1;
     }
   </style>
 </head>
 <body>
 
-<div class="stack-container">
-  <div class="stack-inner" id="stack">
+<div class="carousel">
+  <div class="carousel-images" id="carousel">
     <img src="image1.jpg" alt="Image 1">
     <img src="image2.jpg" alt="Image 2">
     <img src="image3.jpg" alt="Image 3">
     <img src="image4.jpg" alt="Image 4">
     <img src="image5.jpg" alt="Image 5">
-    <img src="image6.jpg" alt="Image 6">
-    <img src="image7.jpg" alt="Image 7">
-    <img src="image8.jpg" alt="Image 8">
   </div>
 </div>
 
 <script>
-  const stack = document.getElementById('stack');
+  const carousel = document.getElementById('carousel');
   let startX = 0;
   let currentX = 0;
-  let rotateY = 0;
+  let offset = 0;
 
-  // Handle touch and mouse drag events
-  const startDrag = (e) => {
+  const positions = [
+    { x: -300, y: 50, scale: 0.8, z: 1 },
+    { x: -150, y: 30, scale: 0.9, z: 2 },
+    { x: 0, y: 0, scale: 1.2, z: 3 }, // Center image
+    { x: 150, y: 30, scale: 0.9, z: 2 },
+    { x: 300, y: 50, scale: 0.8, z: 1 },
+  ];
+
+  const images = Array.from(carousel.children);
+
+  function updatePositions() {
+    images.forEach((img, i) => {
+      const pos = positions[(i + offset + images.length) % images.length];
+      img.style.transform = `translateX(${pos.x}px) translateY(${pos.y}px) scale(${pos.scale})`;
+      img.style.zIndex = pos.z;
+    });
+  }
+
+  function startDrag(e) {
     startX = e.touches ? e.touches[0].clientX : e.clientX;
-    stack.style.transition = "none"; // Disable smooth animation while dragging
+    carousel.style.transition = "none"; // Disable smooth animation while dragging
     document.addEventListener("mousemove", drag);
     document.addEventListener("touchmove", drag);
     document.addEventListener("mouseup", endDrag);
     document.addEventListener("touchend", endDrag);
-  };
+  }
 
-  const drag = (e) => {
+  function drag(e) {
     currentX = e.touches ? e.touches[0].clientX : e.clientX;
     const deltaX = currentX - startX;
-    rotateY += deltaX * 0.1; // Adjust sensitivity of rotation
-    stack.style.transform = `rotateY(${rotateY}deg)`;
-    startX = currentX; // Update startX for continuous dragging
-  };
+    if (Math.abs(deltaX) > 100) {
+      offset = (offset - Math.sign(deltaX) + images.length) % images.length; // Update offset
+      updatePositions();
+      startX = currentX; // Reset starting point
+    }
+  }
 
-  const endDrag = () => {
-    stack.style.transition = "transform 0.3s ease"; // Restore smooth transition
+  function endDrag() {
+    carousel.style.transition = "transform 0.5s ease-in-out"; // Restore smooth transition
     document.removeEventListener("mousemove", drag);
     document.removeEventListener("touchmove", drag);
     document.removeEventListener("mouseup", endDrag);
     document.removeEventListener("touchend", endDrag);
-  };
+  }
 
-  // Add event listeners for drag start
-  stack.addEventListener("mousedown", startDrag);
-  stack.addEventListener("touchstart", startDrag);
+  carousel.addEventListener("mousedown", startDrag);
+  carousel.addEventListener("touchstart", startDrag);
+
+  // Initialize positions
+  updatePositions();
 </script>
 
 </body>
