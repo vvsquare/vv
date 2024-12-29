@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slideable 3D Stacked Images</title>
+  <title>Slideable Circular 3D Stacked Images</title>
   <style>
     body {
       margin: 0;
@@ -41,21 +41,21 @@
       box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
     }
 
-    /* Add 3D offsets with right shift */
+    /* Circular arrangement with larger offsets */
     .stack-container img:nth-child(1) {
-      transform: translateZ(0px) translateX(0px) rotateY(0deg);
+      transform: translateZ(0px) translateX(0px) translateY(0px) rotateY(0deg);
     }
 
     .stack-container img:nth-child(2) {
-      transform: translateZ(-30px) translateX(20px) rotateY(-5deg);
+      transform: translateZ(-40px) translateX(30px) translateY(10px) rotateY(-10deg);
     }
 
     .stack-container img:nth-child(3) {
-      transform: translateZ(-60px) translateX(40px) rotateY(-10deg);
+      transform: translateZ(-80px) translateX(60px) translateY(20px) rotateY(-20deg);
     }
 
     .stack-container img:nth-child(4) {
-      transform: translateZ(-90px) translateX(60px) rotateY(-15deg);
+      transform: translateZ(-120px) translateX(90px) translateY(30px) rotateY(-30deg);
     }
   </style>
 </head>
