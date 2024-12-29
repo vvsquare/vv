@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>3D Stacked Images</title>
+  <title>3D Horizontal Stacked Images</title>
   <style>
     body {
       margin: 0;
@@ -21,7 +21,7 @@
       position: relative;
       width: 300px;
       height: 400px;
-      perspective: 800px;
+      perspective: 1000px;
     }
 
     /* Individual images */
@@ -36,26 +36,26 @@
       transform-style: preserve-3d;
     }
 
-    /* Add a slight 3D stack effect with offsets */
+    /* Add a slight 3D stack effect with horizontal offsets */
     .stack-container img:nth-child(1) {
-      transform: translateZ(0px) rotateX(0deg);
+      transform: translateZ(0px) rotateY(0deg);
     }
 
     .stack-container img:nth-child(2) {
-      transform: translateZ(-30px) rotateX(5deg);
+      transform: translateZ(-30px) rotateY(-5deg);
     }
 
     .stack-container img:nth-child(3) {
-      transform: translateZ(-60px) rotateX(10deg);
+      transform: translateZ(-60px) rotateY(-10deg);
     }
 
     .stack-container img:nth-child(4) {
-      transform: translateZ(-90px) rotateX(15deg);
+      transform: translateZ(-90px) rotateY(-15deg);
     }
 
     /* Hover effect for images */
     .stack-container:hover img {
-      transform: translateZ(0px) rotateX(0deg);
+      transform: translateZ(0px) rotateY(0deg);
       box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
     }
   </style>
