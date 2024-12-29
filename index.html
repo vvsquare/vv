@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>3D Horizontal Stacked Images</title>
+  <title>Slideable 3D Stacked Images</title>
   <style>
     body {
       margin: 0;
@@ -16,15 +16,22 @@
       font-family: Arial, sans-serif;
     }
 
-    /* Stack container */
     .stack-container {
       position: relative;
       width: 300px;
       height: 400px;
       perspective: 1000px;
+      cursor: grab;
     }
 
-    /* Individual images */
+    .stack-inner {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.3s ease;
+    }
+
     .stack-container img {
       position: absolute;
       width: 100%;
@@ -32,11 +39,9 @@
       object-fit: cover;
       border-radius: 10px;
       box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-      transition: transform 0.5s, box-shadow 0.5s;
-      transform-style: preserve-3d;
     }
 
-    /* Add a slight 3D stack effect with horizontal offsets */
+    /* Add 3D offsets */
     .stack-container img:nth-child(1) {
       transform: translateZ(0px) rotateY(0deg);
     }
@@ -52,22 +57,55 @@
     .stack-container img:nth-child(4) {
       transform: translateZ(-90px) rotateY(-15deg);
     }
-
-    /* Hover effect for images */
-    .stack-container:hover img {
-      transform: translateZ(0px) rotateY(0deg);
-      box-shadow: 0 12px 20px rgba(0, 0, 0, 0.4);
-    }
   </style>
 </head>
 <body>
 
 <div class="stack-container">
-  <img src="image1.jpg" alt="Image 1">
-  <img src="image2.jpg" alt="Image 2">
-  <img src="image3.jpg" alt="Image 3">
-  <img src="image4.jpg" alt="Image 4">
+  <div class="stack-inner" id="stack">
+    <img src="image1.jpg" alt="Image 1">
+    <img src="image2.jpg" alt="Image 2">
+    <img src="image3.jpg" alt="Image 3">
+    <img src="image4.jpg" alt="Image 4">
+  </div>
 </div>
+
+<script>
+  const stack = document.getElementById('stack');
+  let startX = 0;
+  let currentX = 0;
+  let rotateY = 0;
+
+  // Handle touch and mouse drag events
+  const startDrag = (e) => {
+    startX = e.touches ? e.touches[0].clientX : e.clientX;
+    stack.style.transition = "none"; // Disable smooth animation while dragging
+    document.addEventListener("mousemove", drag);
+    document.addEventListener("touchmove", drag);
+    document.addEventListener("mouseup", endDrag);
+    document.addEventListener("touchend", endDrag);
+  };
+
+  const drag = (e) => {
+    currentX = e.touches ? e.touches[0].clientX : e.clientX;
+    const deltaX = currentX - startX;
+    rotateY += deltaX * 0.1; // Adjust sensitivity of rotation
+    stack.style.transform = `rotateY(${rotateY}deg)`;
+    startX = currentX; // Update startX for continuous dragging
+  };
+
+  const endDrag = () => {
+    stack.style.transition = "transform 0.3s ease"; // Restore smooth transition
+    document.removeEventListener("mousemove", drag);
+    document.removeEventListener("touchmove", drag);
+    document.removeEventListener("mouseup", endDrag);
+    document.removeEventListener("touchend", endDrag);
+  };
+
+  // Add event listeners for drag start
+  stack.addEventListener("mousedown", startDrag);
+  stack.addEventListener("touchstart", startDrag);
+</script>
 
 </body>
 </html>
