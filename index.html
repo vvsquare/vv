@@ -3,100 +3,64 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Heartfelt Surprise</title>
+  <title>Circular 3D Image Carousel</title>
   <style>
     body {
       margin: 0;
       height: 100vh;
-      background-color: #fff;
-      font-family: Arial, sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      position: relative;
+      background: linear-gradient(to right, #ff7f7f, #ffb3b3);
       overflow: hidden;
+      font-family: Arial, sans-serif;
     }
 
-    /* Background */
-    body::after {
-      content: "";
+    .carousel {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      perspective: 1000px;
+    }
+
+    .carousel-inner {
       position: absolute;
-      top: 0;
-      left: 0;
       width: 100%;
       height: 100%;
-      background-image: linear-gradient(to right, #ff7f7f, #ffb3b3); /* Soft pinks and reds */
-      opacity: 0.8;
-      z-index: 1;
+      transform-style: preserve-3d;
+      animation: rotate 10s linear infinite;
     }
 
-    /* Heart Animation */
-    .heart {
+    .carousel-inner img {
       position: absolute;
-      top: -50px;
-      font-size: 30px;
-      color: red;
-      animation: fall 3s infinite;
+      width: 200px; /* Adjust size for images */
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
-    @keyframes fall {
+    @keyframes rotate {
+      from {
+        transform: rotateY(0deg);
+      }
       to {
-        transform: translateY(100vh);
-        opacity: 0;
+        transform: rotateY(360deg);
       }
     }
 
-    /* Slideshow container */
-    .slideshow-container {
-      position: relative;
-      width: 80vw; /* Adjusted for better fit */
-      height: 60vh; /* Adjusted for better fit */
-      overflow: hidden;
-      z-index: 2;
-      border-radius: 15px;
-    }
-
-    /* Image container for the slideshow */
-    .slideshow-images {
-      display: flex;
-      transition: transform 1s ease-in-out;
-    }
-
-    .slideshow-images img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover; /* Ensures the images fill the container without distorting */
-      border-radius: 15px;
-    }
-
-    /* Playable Background Music */
+    /* Background Music */
     audio {
       position: fixed;
       bottom: 10px;
       left: 10px;
-      z-index: 1000;
     }
   </style>
 </head>
 <body>
 
-<script>
-  function createHeartRain() {
-    for (let i = 0; i < 50; i++) {
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.textContent = '❤️';
-      heart.style.left = `${Math.random() * 100}vw`;
-      heart.style.animationDuration = `${Math.random() * 2 + 3}s`; // Random speed
-      document.body.appendChild(heart);
-    }
-  }
-  createHeartRain();
-</script>
-
-<!-- Slideshow -->
-<div class="slideshow-container">
-  <div class="slideshow-images" id="slideshow-images">
+<div class="carousel">
+  <div class="carousel-inner" id="carousel-inner">
     <img src="image1.jpg" alt="Image 1">
     <img src="image2.jpg" alt="Image 2">
     <img src="image3.jpg" alt="Image 3">
@@ -108,22 +72,34 @@
   </div>
 </div>
 
-<!-- Background Music -->
 <audio autoplay loop>
   <source src="your-song.mp3" type="audio/mp3">
   Your browser does not support the audio element.
 </audio>
 
 <script>
-  const slideshowImages = document.getElementById('slideshow-images');
-  let currentIndex = 0;
+  const carouselInner = document.getElementById('carousel-inner');
+  const images = document.querySelectorAll('.carousel-inner img');
+  const totalImages = images.length;
 
-  function changeImage() {
-    currentIndex = (currentIndex + 1) % 8; // There are 8 images
-    slideshowImages.style.transform = `translateX(-${currentIndex * 100}%)`;
-  }
+  // Arrange images in a circular pattern
+  const radius = 300; // Adjust the radius for carousel size
+  const angleStep = 360 / totalImages;
 
-  setInterval(changeImage, 3000); // Change every 3 seconds
+  images.forEach((img, index) => {
+    const angle = index * angleStep;
+    img.style.transform = `
+      rotateY(${angle}deg)
+      translateZ(${radius}px)
+    `;
+  });
+
+  // Interactive Rotation (Optional)
+  let currentAngle = 0;
+  carouselInner.addEventListener('click', () => {
+    currentAngle -= angleStep; // Rotate left on click
+    carouselInner.style.transform = `rotateY(${currentAngle}deg)`;
+  });
 </script>
 
 </body>
