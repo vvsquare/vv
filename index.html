@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Slideable Circular 3D Stacked Images</title>
+  <title>Enhanced Circular 3D Stacked Images</title>
   <style>
     body {
       margin: 0;
@@ -34,28 +34,28 @@
 
     .stack-container img {
       position: absolute;
-      width: 100%;
-      height: 100%;
+      width: calc(100% - 20px); /* Reduce width for 1 cm gap */
+      height: calc(100% - 20px); /* Reduce height for 1 cm gap */
       object-fit: cover;
       border-radius: 10px;
       box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
     }
 
-    /* Circular arrangement with larger offsets */
+    /* Enhanced Circular Arrangement */
     .stack-container img:nth-child(1) {
       transform: translateZ(0px) translateX(0px) translateY(0px) rotateY(0deg);
     }
 
     .stack-container img:nth-child(2) {
-      transform: translateZ(-40px) translateX(30px) translateY(10px) rotateY(-10deg);
+      transform: translateZ(-60px) translateX(40px) translateY(15px) rotateY(-10deg);
     }
 
     .stack-container img:nth-child(3) {
-      transform: translateZ(-80px) translateX(60px) translateY(20px) rotateY(-20deg);
+      transform: translateZ(-120px) translateX(80px) translateY(30px) rotateY(-20deg);
     }
 
     .stack-container img:nth-child(4) {
-      transform: translateZ(-120px) translateX(90px) translateY(30px) rotateY(-30deg);
+      transform: translateZ(-180px) translateX(120px) translateY(45px) rotateY(-30deg);
     }
   </style>
 </head>
